@@ -7,7 +7,7 @@ import Profile from './components/Profile';
 import PrivateRoutes from './components/PrivateRoutes';
 
 import DashBoard from './components/DashBoard';
-import { useAuthContext } from './AuthContext';
+// import { useAuthContext } from './AuthContext';
 import UpdateProfile from './components/UpdateProfile';
 import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
