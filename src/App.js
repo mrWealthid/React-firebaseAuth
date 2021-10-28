@@ -13,7 +13,7 @@ import ResetPassword from './components/ResetPassword';
 import Home from './components/Home';
 
 function App() {
-  const { users } = useAuthContext();
+  // const { users } = useAuthContext();
   return (
     <div className='flex flex-col w-10/12 mx-auto justify-center'>
       <Navlinks />
