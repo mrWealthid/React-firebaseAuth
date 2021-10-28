@@ -19,11 +19,11 @@ function App() {
       <Navlinks />
 
       <section className='min-h-screen gap-4 flex flex-col justify-center items-center '>
-        {users && (
+        {/* {users && (
           <h5 className='text-black-600 text-lg'>
             User Logged In: {users?.email}
           </h5>
-        )}
+        )} */}
 
         <Switch>
           <Route exact path={'/'} component={Home} />
