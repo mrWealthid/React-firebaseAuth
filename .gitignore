@@ -21,3 +21,100 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+
+
+import React, { useRef } from 'react';
+
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
+const Login = () => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  const history = useHistory();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    axios
+      .post('https://authy.biduwe.com/auth/login', user)
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data.data.token);
+        sessionStorage.setItem('token', data.data.token);
+        emailRef.current.value = '';
+        passwordRef.current.value = '';
+        history.push('/profile');
+      })
+      .catch((error) => console.log(error));
+  };
+
+  return (
+    <div className='min-h-screen flex justify-center items-center '>
+      <form className='w-4/12 p-4 bg-gray-200 p-10' onSubmit={handleSubmit}>
+        <p className='text-2xl'> Login</p>
+        <input
+          type='email'
+          placeholder='john@example.com'
+          name='email'
+          ref={emailRef}
+          className='my-2 block w-full p-4 rounded-md outline-none bg-gray-100'
+        />
+
+        <input
+          type='password'
+          placeholder='Enter Password'
+          name='password'
+          ref={passwordRef}
+          className='my-2 block w-full p-4 rounded-md outline-none bg-gray-100'
+        />
+
+        <button
+          style={{ color: 'wheat' }}
+          className='bg-gray-700 text-white text-sm mt-4  md:text-base rounded-full hover:bg-gray-500 py-3 px-7'
+        >
+          Submit
+        </button>
+        <a href='/'>Forgot Password</a>
+
+        <p>
+          Need An Account <Link to='/Signup'>Sign up</Link>
+        </p>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+
+
+
+<input
+          type='text'
+          placeholder='UserName'
+          ref={UserRef}
+          className='my-2 block w-full p-4 rounded-md outline-none bg-gray-100'
+        />
+        <input
+          type='password'
+          placeholder='Enter Password'
+          name='password'
+          ref={passwordRef}
+          className='my-2 block w-full p-4 rounded-md outline-none bg-gray-100'
+        />
+        <input
+          type='password'
+          placeholder='Enter Password'
+          name='password'
+          ref={passwordConfirmRef}
+          className='my-2 block w-full p-4 rounded-md outline-none bg-gray-100'
+        />
