@@ -8,6 +8,7 @@ const Navlinks = () => {
     <div>
       <NavLink to='/'> Home</NavLink>
       {users && <NavLink to='/dashBoard'> Dashboard</NavLink>}
+      <NavLink to='/Profile'> Profile</NavLink>
       {!users ? (
         <NavLink to='/Signup'> Signup</NavLink>
       ) : (

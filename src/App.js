@@ -10,6 +10,7 @@ import DashBoard from './components/DashBoard';
 import { useAuthContext } from './AuthContext';
 import UpdateProfile from './components/UpdateProfile';
 import ResetPassword from './components/ResetPassword';
+import Home from './components/Home';
 
 function App() {
   const { users } = useAuthContext();
@@ -18,13 +19,15 @@ function App() {
       <Navlinks />
 
       <section className='min-h-screen gap-4 flex flex-col justify-center items-center '>
-        <h5 className='text-black-600 text-lg'>
-          User Logged In: {users?.email}
-        </h5>
+        {users && (
+          <h5 className='text-black-600 text-lg'>
+            User Logged In: {users?.email}
+          </h5>
+        )}
 
         <Switch>
-          <PrivateRoutes exact path='/' component={Profile} />
-          {/* <PrivateRoutes path='/profile' component={Profile} /> */}
+          <Route exact path={'/'} component={Home} />
+          <PrivateRoutes exact path='/Profile' component={Profile} />
           <PrivateRoutes path='/Dashboard' component={DashBoard} />
           <Route path={'/Signup'} component={Signup} />
           <Route path={'/login'} component={Login} />
