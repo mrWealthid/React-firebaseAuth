@@ -14,6 +14,10 @@ import {
   setDoc,
   doc,
   addDoc,
+  deleteDoc,
+  query,
+  serverTimestamp,
+  orderBy,
 } from 'firebase/firestore';
 
 const AuthContext = createContext();
@@ -39,15 +43,15 @@ const AuthProvider = ({ children }) => {
   const history = useHistory();
 
   //getting data from firestore
-  useEffect(
-    () =>
-      onSnapshot(collection(db, 'product'), (snapshot) => {
-        console.log(
-          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        );
-      }),
-    []
-  );
+  useEffect(() => {
+    //To order by timestamp
+    const q = query(collection(db, 'product'), orderBy('timestamp', 'desc'));
+
+    const unsub = onSnapshot(q, (snapshot) => {
+      console.log(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return unsub;
+  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -212,7 +216,7 @@ const AuthProvider = ({ children }) => {
     //  setDoc(docRef, payload);
 
     const collectionRef = collection(db, 'product');
-    const payload = { name: 'Ben', age: 22 };
+    const payload = { name: 'Ben', age: 22, timestamp: serverTimestamp() };
     addDoc(collectionRef, payload);
   };
 
@@ -220,6 +224,16 @@ const AuthProvider = ({ children }) => {
     const docRef = doc(db, 'product', id);
     const payload = { name: 'Best', age: 22 };
     setDoc(docRef, payload);
+  };
+  const handleDelete = (id) => {
+    const docRef = doc(db, 'product', id);
+    deleteDoc(docRef);
+  };
+
+  const handleQueryDelete = (id) => {
+    const actualref = 'Ben';
+    const collectionRef = collection(db, 'product');
+    const q = query(collectionRef, where('name', '' == '', actualref));
   };
 
   return (
