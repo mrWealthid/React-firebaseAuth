@@ -8,7 +8,13 @@ import {
 } from 'firebase/auth';
 import { auth, db } from './firebase-config';
 import { useHistory } from 'react-router-dom';
-import { onSnapshot, collection } from 'firebase/firestore';
+import {
+  onSnapshot,
+  collection,
+  setDoc,
+  doc,
+  addDoc,
+} from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -195,6 +201,21 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  // add doc uses a collection ref while set doc uses a document reference
+
+  const handleNew = () => {
+    //    we will use add doc instead of setdoc because we want firestore to generate an id for us
+
+    //   const docRef = doc(db, 'product', 'products88jj8');
+    //   const payload = { name: 'Ben', age: 22 };
+
+    //  setDoc(docRef, payload);
+
+    const collectionRef = collection(db, 'product');
+    const payload = { name: 'Ben', age: 22 };
+    addDoc(collectionRef, payload);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -215,6 +236,7 @@ const AuthProvider = ({ children }) => {
         ...alert,
         confirmFields,
         buttonLoader,
+        handleNew,
       }}
     >
       {children}
