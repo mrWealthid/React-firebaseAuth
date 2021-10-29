@@ -6,8 +6,9 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { auth } from './firebase-config';
+import { auth, db } from './firebase-config';
 import { useHistory } from 'react-router-dom';
+import { onSnapshot, collection } from 'firebase/firestore';
 
 const AuthContext = createContext();
 
@@ -30,6 +31,14 @@ const AuthProvider = ({ children }) => {
   });
   const [buttonLoader, setButtonLoader] = useState(false);
   const history = useHistory();
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'product'), (snapshot) => {
+        console.log(snapshot.docs.map((doc) => doc.data()));
+      }),
+    []
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
