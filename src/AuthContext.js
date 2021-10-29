@@ -32,10 +32,13 @@ const AuthProvider = ({ children }) => {
   const [buttonLoader, setButtonLoader] = useState(false);
   const history = useHistory();
 
+  //getting data from firestore
   useEffect(
     () =>
       onSnapshot(collection(db, 'product'), (snapshot) => {
-        console.log(snapshot.docs.map((doc) => doc.data()));
+        console.log(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
       }),
     []
   );
