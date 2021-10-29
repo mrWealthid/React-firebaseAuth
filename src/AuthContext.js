@@ -203,7 +203,7 @@ const AuthProvider = ({ children }) => {
 
   // add doc uses a collection ref while set doc uses a document reference
 
-  const handleNew = () => {
+  const handleAddNew = () => {
     //    we will use add doc instead of setdoc because we want firestore to generate an id for us
 
     //   const docRef = doc(db, 'product', 'products88jj8');
@@ -214,6 +214,12 @@ const AuthProvider = ({ children }) => {
     const collectionRef = collection(db, 'product');
     const payload = { name: 'Ben', age: 22 };
     addDoc(collectionRef, payload);
+  };
+
+  const handleEdit = (id) => {
+    const docRef = doc(db, 'product', id);
+    const payload = { name: 'Best', age: 22 };
+    setDoc(docRef, payload);
   };
 
   return (
@@ -236,7 +242,7 @@ const AuthProvider = ({ children }) => {
         ...alert,
         confirmFields,
         buttonLoader,
-        handleNew,
+        handleAddNew,
       }}
     >
       {children}
