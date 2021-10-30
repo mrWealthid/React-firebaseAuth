@@ -230,11 +230,11 @@ const AuthProvider = ({ children }) => {
     deleteDoc(docRef);
   };
 
-  const handleQueryDelete = (id) => {
-    const actualref = 'Ben';
-    const collectionRef = collection(db, 'product');
-    const q = query(collectionRef, where('name', '' == '', actualref));
-  };
+  // const handleQueryDelete = (id) => {
+  //   const actualref = 'Ben';
+  //   const collectionRef = collection(db, 'product');
+  //   const q = query(collectionRef, where('name', '' == '', actualref));
+  // };
 
   return (
     <AuthContext.Provider
@@ -257,6 +257,8 @@ const AuthProvider = ({ children }) => {
         confirmFields,
         buttonLoader,
         handleAddNew,
+        handleEdit,
+        handleDelete,
       }}
     >
       {children}

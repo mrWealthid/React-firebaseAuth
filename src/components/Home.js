@@ -1,6 +1,5 @@
 import React from 'react';
 import { useAuthContext } from '../AuthContext';
-import { DocumentSnapshot } from 'firebase/firestore';
 
 const Home = () => {
   const { handleAddNew } = useAuthContext();
